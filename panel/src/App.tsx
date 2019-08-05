@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import FLMC, { FormController, Label } from "flmc-lite-renderer";
+import "./App.css";
+import { RouteCategory } from "flmc-lite-renderer/build/router/route";
+
+class SampleForm extends FormController {
+  elements = [Label("This is a sample form")];
+}
+
+const rootCategory: RouteCategory = {
+  hidden: false,
+  name: "Root"
+};
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FLMC
+      routes={[
+        {
+          name: "Home",
+          path: "/",
+          builder: (path, params) => new SampleForm(),
+          category: rootCategory,
+          hidden: false
+        }
+      ]}
+    />
   );
-}
+};
 
 export default App;
